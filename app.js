@@ -93,16 +93,17 @@ function updateLogs(logs) {
 
 function checkVipArrivals(logs) {
   if (!logs) return;
-
-  // Ambil data VIP dari log
   const vipLogs = logs.filter(log => log.kategori === 'VIP').reverse();
 
   vipLogs.forEach(vip => {
-    if (!shownVipGuests.has(vip.nama) && !vipQueue.includes(vip.nama)) {
-      vipQueue.push(vip.nama);
+    if (!shownVipGuests.has(vip.nama)) {
+      const existingInQueue = vipQueue.some(item => item.nama === vip.nama);
+      if (!existingInQueue) {
+        // Simpan nama DAN jabatan ke dalam antrean
+        vipQueue.push({ nama: vip.nama, jabatan: vip.jabatan || 'Tamu Kehormatan Wisuda' });
+      }
     }
   });
-
   processVipQueue();
 }
 
@@ -110,17 +111,22 @@ function processVipQueue() {
   if (isModalActive || vipQueue.length === 0) return;
 
   const nextVip = vipQueue.shift(); 
-  shownVipGuests.add(nextVip);
-  showVipModal(nextVip);
+  shownVipGuests.add(nextVip.nama);
+
+  // Kirim data nama dan jabatan ke fungsi pop-up
+  showVipModal(nextVip.nama, nextVip.jabatan);
 }
 
-function showVipModal(nama) {
+function showVipModal(nama, jabatan) {
   isModalActive = true;
   document.getElementById('vipGuestName').textContent = nama;
+
+  // Baris spesifik untuk mengubah teks jabatan secara dinamis:
+  document.getElementById('vipJabatan').textContent = jabatan; 
+
   document.getElementById('vipModal').classList.remove('hidden');
 
-  // DURASI 5 MENIT (Jika ingin dites cepat, ubah jadi 10000 untuk 10 detik)
-  const DURATION_MS =  20 * 1000; 
+  const DURATION_MS = 30 * 1000; // Durasi 30 detik
 
   modalTimeout = setTimeout(() => {
     closeVipModal();
