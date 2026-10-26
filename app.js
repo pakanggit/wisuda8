@@ -1,9 +1,9 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyrNdu6cavieDTP9qTlJ7WO24caKVKrPxWzLFzbYvFIH-I03Mf0M-mTnjunj6xYiaUx/exec";
 
 let chartInstance = null;
-let shownVipGuests = new Set(); // Menyimpan nama VIP yang sudah ditampilkan pop-upnya
-let vipQueue = [];              // Antrean tamu VIP yang belum tampil
-let isModalActive = false;      // Status apakah pop-up sedang aktif
+let shownVipGuests = new Set(); 
+let vipQueue = [];              
+let isModalActive = false;      
 let modalTimeout = null;
 
 async function fetchStats() {
@@ -15,7 +15,7 @@ async function fetchStats() {
       updateCards(data.vip, data.reguler);
       updateChart(data.vip, data.reguler);
       updateLogs(data.logs);
-      checkVipArrivals(data.logs); // Cek apakah ada tamu VIP baru
+      checkVipArrivals(data.logs); 
     }
   } catch (err) {
     console.error("Gagal mengambil data:", err);
@@ -89,29 +89,27 @@ function updateLogs(logs) {
   }).join('');
 }
 
-// --- LOGIKA POP-UP SAMBUTAN VIP BERURUTAN (5 MENIT) ---
+// --- LOGIKA POP-UP SAMBUTAN VIP ---
 
 function checkVipArrivals(logs) {
   if (!logs) return;
 
-  // Filter tamu VIP dari logs (diurutkan dari yang paling awal datang)
+  // Ambil data VIP dari log
   const vipLogs = logs.filter(log => log.kategori === 'VIP').reverse();
 
   vipLogs.forEach(vip => {
-    // Jika tamu VIP belum pernah ditampilkan dan belum ada di antrean
     if (!shownVipGuests.has(vip.nama) && !vipQueue.includes(vip.nama)) {
       vipQueue.push(vip.nama);
     }
   });
 
-  // Jalankan antrean jika sedang tidak ada modal yang aktif
   processVipQueue();
 }
 
 function processVipQueue() {
   if (isModalActive || vipQueue.length === 0) return;
 
-  const nextVip = vipQueue.shift(); // Ambil VIP pertama di antrean
+  const nextVip = vipQueue.shift(); 
   shownVipGuests.add(nextVip);
   showVipModal(nextVip);
 }
@@ -121,7 +119,7 @@ function showVipModal(nama) {
   document.getElementById('vipGuestName').textContent = nama;
   document.getElementById('vipModal').classList.remove('hidden');
 
-  // Durasi Tampil: 5 Menit (300.000 ms)
+  // DURASI 5 MENIT (Jika ingin dites cepat, ubah jadi 10000 untuk 10 detik)
   const DURATION_MS = 5 * 60 * 1000; 
 
   modalTimeout = setTimeout(() => {
@@ -134,7 +132,6 @@ function closeVipModal() {
   document.getElementById('vipModal').classList.add('hidden');
   isModalActive = false;
 
-  // Beri jeda 1 detik sebelum menampilkan VIP berikutnya di antrean
   setTimeout(processVipQueue, 1000);
 }
 
