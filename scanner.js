@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyrNdu6cavieDTP9qTlJ7WO24caKVKrPxWzLFzbYvFIH-I03Mf0M-mTnjunj6xYiaUx/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyXHxM0GMMWyiVo_GuIboCWApkt98GdcCdwkh7yoNrnf5GwfOwOgyYiuTjrGRYxssAd/exec";
 
 let isProcessing = false;
 
