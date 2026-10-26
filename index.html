@@ -67,11 +67,11 @@
     </div>
   </div>
 
-  <!-- POP-UP SAMBUTAN VIP (Sembunyi secara default) -->
+<!-- POP-UP SAMBUTAN VIP (Sembunyi secara default) -->
   <div id="vipModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden transition-all duration-500">
-    <div class="bg-gradient-to-b from-amber-500/20 to-slate-900 border-2 border-amber-500/50 rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center shadow-2xl shadow-amber-500/10 relative overflow-hidden animate-bounce-short">
+    <div class="bg-gradient-to-b from-amber-500/20 to-slate-900 border-2 border-amber-500/50 rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center shadow-2xl shadow-amber-500/10 relative overflow-hidden">
       
-      <!-- Hiasan Mahkota/Bintang -->
+      <!-- Hiasan Mahkota -->
       <div class="w-20 h-20 bg-amber-500/20 border border-amber-400/40 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-amber-500/20">
         <i class="fa-solid fa-crown text-4xl text-amber-400 animate-pulse"></i>
       </div>
@@ -80,13 +80,16 @@
       
       <!-- Nama Tamu VIP -->
       <h2 id="vipGuestName" class="text-3xl md:text-5xl font-black text-slate-100 my-4 leading-tight">
-        <<Nama Tamu VIP>>
+        &lt;&lt;Nama Tamu VIP&gt;&gt;
       </h2>
 
-     <p id="vipJabatan" class="text-slate-400 text-sm mt-4">Tamu Kehormatan Wisuda</p>
+      <!-- JABATAN DINAMIS (Dibuat lebih besar, tebal, dan warna kontras) -->
+      <p id="vipJabatan" class="text-amber-200/90 font-semibold text-lg md:text-xl mt-3 tracking-wide">
+        Tamu Kehormatan Wisuda
+      </p>
 
-      <!-- Tombol Tutup Manual (Opsional jika ingin ditutup sebelum 5 menit) -->
-      <button onclick="closeVipModal()" class="mt-8 text-xs text-slate-500 hover:text-slate-300 underline">
+      <!-- Tombol Tutup Manual -->
+      <button onclick="closeVipModal()" class="mt-8 text-xs text-slate-400 hover:text-slate-200 underline">
         Tutup Pop-Up Lebih Awal
       </button>
     </div>
