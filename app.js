@@ -120,7 +120,7 @@ function showVipModal(nama) {
   document.getElementById('vipModal').classList.remove('hidden');
 
   // DURASI 5 MENIT (Jika ingin dites cepat, ubah jadi 10000 untuk 10 detik)
-  const DURATION_MS =  60 * 1000; 
+  const DURATION_MS =  20 * 1000; 
 
   modalTimeout = setTimeout(() => {
     closeVipModal();
