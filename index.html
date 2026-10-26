@@ -13,31 +13,35 @@
     
     <!-- Header -->
     <header class="flex flex-col md:flex-row justify-between items-center bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700">
-      <div>
-        <h1 class="text-3xl font-extrabold text-amber-400"><i class="fa-solid fa-graduation-cap mr-3"></i>Wisuda 8 STKIP Al Hikmah Surabaya</h1>
-        <p class="text-slate-400 mt-1">Monitoring Kehadiran Tamu Real-time</p>
+      <div class="flex items-center gap-4">
+        <!-- Logo STKIP Al Hikmah (Pastikan file logo.png ada di folder github) -->
+        <img src="logo.png" alt="Logo STKIP Al Hikmah" class="w-14 h-14 object-contain">
+        <div>
+          <h1 class="text-3xl font-extrabold text-amber-400">Wisuda 8 STKIP Al Hikmah Surabaya</h1>
+          <p class="text-slate-400 mt-1">Monitoring Kehadiran Tamu Real-time</p>
+        </div>
       </div>
- <!--     <a href="scanner.html" class="mt-4 md:mt-0 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+      <a href="scanner.html" class="mt-4 md:mt-0 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
         <i class="fa-solid fa-qrcode"></i> Buka Mode Scanner
-      </a>   -->
+      </a>
     </header>
 
     <!-- Ringkasan Kartu Stats -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
-        <p class="text-xs uppercase text-slate-400 font-bold">Undangan VIP</p>
+        <p class="text-xs uppercase text-slate-400 font-bold">Total VIP</p>
         <p id="totalVip" class="text-3xl font-black text-amber-400 mt-1">0</p>
       </div>
       <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
-        <p class="text-xs uppercase text-slate-400 font-bold">VIP Sudah Hadir</p>
+        <p class="text-xs uppercase text-slate-400 font-bold">VIP Hadir</p>
         <p id="hadirVip" class="text-3xl font-black text-emerald-400 mt-1">0</p>
       </div>
       <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
-        <p class="text-xs uppercase text-slate-400 font-bold">Undangan Reguler</p>
+        <p class="text-xs uppercase text-slate-400 font-bold">Total Reguler</p>
         <p id="totalReg" class="text-3xl font-black text-blue-400 mt-1">0</p>
       </div>
       <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
-        <p class="text-xs uppercase text-slate-400 font-bold">Reguler Sudah Hadir</p>
+        <p class="text-xs uppercase text-slate-400 font-bold">Reguler Hadir</p>
         <p id="hadirReg" class="text-3xl font-black text-indigo-400 mt-1">0</p>
       </div>
     </div>
@@ -67,7 +71,7 @@
     </div>
   </div>
 
-<!-- POP-UP SAMBUTAN VIP (Sembunyi secara default) -->
+  <!-- POP-UP SAMBUTAN VIP (Sembunyi secara default) -->
   <div id="vipModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden transition-all duration-500">
     <div class="bg-gradient-to-b from-amber-500/20 to-slate-900 border-2 border-amber-500/50 rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center shadow-2xl shadow-amber-500/10 relative overflow-hidden">
       
@@ -83,7 +87,7 @@
         &lt;&lt;Nama Tamu VIP&gt;&gt;
       </h2>
 
-      <!-- JABATAN DINAMIS (Dibuat lebih besar, tebal, dan warna kontras) -->
+      <!-- Jabatan Tamu VIP -->
       <p id="vipJabatan" class="text-amber-200/90 font-semibold text-lg md:text-xl mt-3 tracking-wide">
         Tamu Kehormatan Wisuda
       </p>
