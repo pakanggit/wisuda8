@@ -133,7 +133,7 @@ function showVipModal(nama, jabatan) {
   document.getElementById('vipJabatan').textContent = jabatan; 
   document.getElementById('vipModal').classList.remove('hidden');
 
-  const DURATION_MS = 10 * 1000; // Durasi 10 detik
+  const DURATION_MS = 30 * 1000; // Durasi 30 detik
 
   modalTimeout = setTimeout(() => {
     closeVipModal();
