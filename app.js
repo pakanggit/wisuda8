@@ -1,7 +1,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyXHxM0GMMWyiVo_GuIboCWApkt98GdcCdwkh7yoNrnf5GwfOwOgyYiuTjrGRYxssAd/exec";
 
 let chartInstance = null;
-let shownVipGuests = new Set(); 
+let shownVipGuests = new Set(JSON.parse(localStorage.getItem('shownVipGuests') || '[]')); 
 let vipQueue = [];              
 let isModalActive = false;      
 let modalTimeout = null;
@@ -99,7 +99,6 @@ function checkVipArrivals(logs) {
     if (!shownVipGuests.has(vip.nama)) {
       const existingInQueue = vipQueue.some(item => item.nama === vip.nama);
       if (!existingInQueue) {
-        // Simpan nama DAN jabatan ke dalam antrean
         vipQueue.push({ nama: vip.nama, jabatan: vip.jabatan || 'Tamu Kehormatan Wisuda' });
       }
     }
@@ -113,17 +112,16 @@ function processVipQueue() {
   const nextVip = vipQueue.shift(); 
   shownVipGuests.add(nextVip.nama);
 
-  // Kirim data nama dan jabatan ke fungsi pop-up
+  // Simpan riwayat ke localStorage agar aman saat halaman direfresh
+  localStorage.setItem('shownVipGuests', JSON.stringify(Array.from(shownVipGuests)));
+
   showVipModal(nextVip.nama, nextVip.jabatan);
 }
 
 function showVipModal(nama, jabatan) {
   isModalActive = true;
   document.getElementById('vipGuestName').textContent = nama;
-
-  // Baris spesifik untuk mengubah teks jabatan secara dinamis:
   document.getElementById('vipJabatan').textContent = jabatan; 
-
   document.getElementById('vipModal').classList.remove('hidden');
 
   const DURATION_MS = 30 * 1000; // Durasi 30 detik
