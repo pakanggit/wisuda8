@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Kehadiran Wisuda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-4 md:p-8">
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-center bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700">
+      <div>
+        <h1 class="text-3xl font-extrabold text-amber-400"><i class="fa-solid fa-graduation-cap mr-3"></i>Dashboard Wisuda</h1>
+        <p class="text-slate-400 mt-1">Monitoring Kehadiran Tamu Real-time</p>
+      </div>
+      <a href="scanner.html" class="mt-4 md:mt-0 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+        <i class="fa-solid fa-qrcode"></i> Buka Mode Scanner
+      </a>
+    </header>
+
+    <!-- Ringkasan Kartu Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+        <p class="text-xs uppercase text-slate-400 font-bold">Total VIP</p>
+        <p id="totalVip" class="text-3xl font-black text-amber-400 mt-1">0</p>
+      </div>
+      <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+        <p class="text-xs uppercase text-slate-400 font-bold">VIP Hadir</p>
+        <p id="hadirVip" class="text-3xl font-black text-emerald-400 mt-1">0</p>
+      </div>
+      <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+        <p class="text-xs uppercase text-slate-400 font-bold">Total Reguler</p>
+        <p id="totalReg" class="text-3xl font-black text-blue-400 mt-1">0</p>
+      </div>
+      <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+        <p class="text-xs uppercase text-slate-400 font-bold">Reguler Hadir</p>
+        <p id="hadirReg" class="text-3xl font-black text-indigo-400 mt-1">0</p>
+      </div>
+    </div>
+
+    <!-- Grafik & Live Feed -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Chart Prosentase Kehadiran -->
+      <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col items-center justify-center">
+        <h2 class="text-lg font-bold mb-4 text-slate-200">Persentase Kehadiran</h2>
+        <div class="w-full max-w-xs">
+          <canvas id="presenceChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Live Stream Presensi Masuk -->
+      <div class="lg:col-span-2 bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col">
+        <h2 class="text-lg font-bold mb-4 text-slate-200 flex items-center justify-between">
+          <span><i class="fa-solid fa-clock-rotate-left mr-2 text-amber-400"></i>Aktivitas Masuk Terbaru</span>
+          <span class="text-xs font-normal bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full animate-pulse">Live Updating</span>
+        </h2>
+        <div id="logsContainer" class="space-y-3 overflow-y-auto max-h-80 pr-2">
+          <p class="text-slate-500 text-center py-8">Memuat data kehadiran...</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
