@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzZ0S0toOti6oVf9x-p5jlDP-G-wVlj0y05QrCqfTzoGRYMeS5ENBj9TMflfpvtdnO9/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbys3-1rwx5-OljHu8mjeZxi4IqQWqqyPAjYL7ZBf0DOMBG376TdnPkci5hlYE6CVGdC/exec";
 
 let chartInstance = null;
 let shownVipGuests = new Set(); 
