@@ -1,7 +1,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyXHxM0GMMWyiVo_GuIboCWApkt98GdcCdwkh7yoNrnf5GwfOwOgyYiuTjrGRYxssAd/exec";
 
 let chartInstance = null;
-let shownVipGuests = new Set(JSON.parse(localStorage.getItem('shownVipGuests') || '[]')); 
+let shownVipGuests = new Set(); 
 let vipQueue = [];              
 let isModalActive = false;      
 let modalTimeout = null;
@@ -89,33 +89,42 @@ function updateLogs(logs) {
   }).join('');
 }
 
-// --- LOGIKA POP-UP SAMBUTAN VIP ---
+// --- LOGIKA POP-UP SAMBUTAN VIP & STATUS GLOBAL ---
 
 function checkVipArrivals(logs) {
   if (!logs) return;
   const vipLogs = logs.filter(log => log.kategori === 'VIP').reverse();
 
   vipLogs.forEach(vip => {
-    if (!shownVipGuests.has(vip.nama)) {
+    // Masukkan ke antrean HANYA JIKA di spreadsheet statusPopup-nya belum 'Sudah'
+    if (vip.statusPopup !== 'Sudah' && !shownVipGuests.has(vip.nama)) {
       const existingInQueue = vipQueue.some(item => item.nama === vip.nama);
       if (!existingInQueue) {
-        vipQueue.push({ nama: vip.nama, jabatan: vip.jabatan || 'Tamu Kehormatan Wisuda' });
+        vipQueue.push({ 
+          nama: vip.nama, 
+          jabatan: vip.jabatan || 'Tamu Kehormatan Wisuda' 
+        });
       }
     }
   });
   processVipQueue();
 }
 
-function processVipQueue() {
+async function processVipQueue() {
   if (isModalActive || vipQueue.length === 0) return;
 
   const nextVip = vipQueue.shift(); 
   shownVipGuests.add(nextVip.nama);
 
-  // Simpan riwayat ke localStorage agar aman saat halaman direfresh
-  localStorage.setItem('shownVipGuests', JSON.stringify(Array.from(shownVipGuests)));
-
+  // Tampilkan pop-up
   showVipModal(nextVip.nama, nextVip.jabatan);
+
+  // Kirim status 'Sudah' ke Google Sheets agar tersimpan secara global
+  try {
+    await fetch(`${API_URL}?action=markShown&nama=${encodeURIComponent(nextVip.nama)}`);
+  } catch (err) {
+    console.error("Gagal memperbarui status pop-up ke server:", err);
+  }
 }
 
 function showVipModal(nama, jabatan) {
