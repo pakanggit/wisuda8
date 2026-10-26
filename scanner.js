@@ -8,13 +8,26 @@ function onScanSuccess(decodedText) {
 
   document.getElementById('loading').classList.remove('hidden');
 
-  // Membersihkan teks QR jika formatnya gabungan ("ID: ... | Nama: ... | Kategori: ...")
-  let cleanId = decodedText;
-  if (decodedText.includes('|')) {
-    cleanId = decodedText.split('|')[0].replace('ID:', '').trim();
+  // 1. Decode URL jika QR membaca format link QuickChart yang ter-encode (%3A, %7C, dll)
+  let textToProcess = decodedText;
+  try {
+    textToProcess = decodeURIComponent(decodedText);
+  } catch (e) {
+    // Jika teks biasa, biarkan apa adanya
   }
 
-  // Menggunakan method POST tanpa mode no-cors agar pesan dari Apps Script tertangkap
+  // 2. Ekstrak ID dari format "ID: VIP-001 | Nama: ... | Kategori: ..."
+  let cleanId = textToProcess;
+  if (textToProcess.includes('|')) {
+    cleanId = textToProcess.split('|')[0].replace('ID:', '').trim();
+  } else {
+    cleanId = textToProcess.trim();
+  }
+
+  // Debugging di Console Browser (tekan F12 untuk melihat hasil pembersihan ID)
+  console.log("Raw QR:", decodedText);
+  console.log("Clean ID yang dikirim ke server:", cleanId);
+
   fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
